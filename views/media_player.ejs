@@ -1,0 +1,46 @@
+<%- include('partials/header', { seo: seo, config: config }) %>
+
+<link rel="stylesheet" href="/assets/css/player.css">
+
+<div class="container mx-auto py-10 px-4">
+    <div class="audio-container">
+        <h2 class="text-xl font-bold text-gray-800 mb-4 truncate" title="<%= media.original_filename %>">
+            <%= media.original_filename %>
+        </h2>
+        <% if (isVideo) { %>
+            <video id="media-player" controls class="plyr w-full aspect-video">
+                <source src="<%= config.uploads.url_path %><%= media.filename %>" type="<%= media.mimetype %>">
+            </video>
+        <% } else { %>
+            <audio id="media-player" controls class="plyr w-full">
+                <source src="<%= config.uploads.url_path %><%= media.filename %>" type="<%= media.mimetype %>">
+            </audio>
+        <% } %>
+    </div>
+
+    <div class="mt-6 max-w-lg mx-auto">
+        <div class="flex items-center bg-gray-100 rounded-lg p-2 mb-4 border">
+            <input id="media-url" type="text" readonly value="<%= currentUrl %>" class="flex-grow bg-transparent border-none text-sm px-2 focus:outline-none text-gray-600">
+            <button id="copy-button" class="bg-indigo-600 text-white text-xs px-3 py-1.5 rounded hover:bg-indigo-700">Copy</button>
+        </div>
+        <div class="flex justify-center space-x-4">
+            <a href="<%= config.uploads.url_path %><%= media.filename %>" download="<%= media.original_filename %>" class="btn-action text-indigo-600 text-sm font-medium flex items-center hover:underline">
+                <i class="bi bi-download mr-1"></i> Download
+            </a>
+            <div class="text-gray-500 text-sm flex items-center">
+                <i class="bi <%= isVideo ? 'bi-play-btn' : 'bi-headphones' %> mr-1"></i> <%= plays %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer', { config: config }) %>
+
+<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        new Plyr("#media-player", { controls: ["play-large", "play", "progress", "current-time", "mute", "volume", "fullscreen"] });
+    });
+</script>
+
+<script src="/assets/js/player.js"></script>

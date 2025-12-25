@@ -1,0 +1,14 @@
+/* Custom utility classes replacing specific Tailwind if needed */
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+[data-drop-zone].dragover {
+  border-color: #4f46e5;
+  background-color: #eef2ff;
+}
+
+.isolate {
+  isolation: isolate;
+}

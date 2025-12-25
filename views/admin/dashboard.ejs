@@ -1,0 +1,34 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white p-6 rounded shadow-sm border">
+        <div class="flex items-center">
+            <div class="bg-indigo-100 text-indigo-600 p-3 rounded-full"><i class="bi bi-collection-play text-2xl"></i></div>
+            <div class="ml-4">
+                <p class="text-sm font-medium text-gray-500">Total Media</p>
+                <p id="totalMedia" class="text-2xl font-semibold">Loading...</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white p-6 rounded shadow-sm border">
+        <div class="flex items-center mb-2">
+            <div class="bg-green-100 text-green-600 p-2 rounded-full mr-3"><i class="bi bi-graph-up"></i></div>
+            <h3 class="font-medium text-gray-700">Most Popular</h3>
+        </div>
+        <div id="mostPopularList" class="space-y-2">Loading...</div>
+    </div>
+    <div class="bg-white p-6 rounded shadow-sm border">
+        <div class="flex items-center mb-2">
+            <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3"><i class="bi bi-clock-history"></i></div>
+            <h3 class="font-medium text-gray-700">Recent Uploads</h3>
+        </div>
+        <div id="newMediaList" class="space-y-2">Loading...</div>
+    </div>
+</div>
+
+<div class="mt-8 bg-white p-6 rounded shadow-sm border">
+    <h3 class="font-semibold text-gray-900 mb-4">Upload Activity (30 Days)</h3>
+    <div class="h-64"><canvas id="mediaChart"></canvas></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/assets/js/dashboard.js"></script>
+

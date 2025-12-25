@@ -1,0 +1,60 @@
+<div class="bg-white p-6 rounded shadow-sm border">
+    <div class="mb-4">
+        <label for="sort" class="text-sm font-medium text-gray-700 mr-2">Sort by:</label>
+        <select id="sort" onchange="sortMedia(this.value)" class="border-gray-300 rounded shadow-sm p-1 text-sm border">
+            <option value="newest" <%= data.sort_order === 'newest' ? 'selected' : '' %>>Newest</option>
+            <option value="oldest" <%= data.sort_order === 'oldest' ? 'selected' : '' %>>Oldest</option>
+        </select>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Filename</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Type</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Plays</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                <% if (!data.media_tracks.length) { %>
+                    <tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No media found.</td></tr>
+                <% } else { %>
+                    <% data.media_tracks.forEach(m => { %>
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-mono truncate max-w-xs" title="<%= m.filename %>"><%= m.original_filename %></td>
+                        <td class="px-6 py-4 text-center text-xs text-gray-500">
+                            <span class="px-2 py-1 rounded <%= m.mimetype.startsWith('video') ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800' %>">
+                                <%= m.mimetype.startsWith('video') ? 'Video' : 'Audio' %>
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-center text-sm text-gray-500"><%= m.plays || 0 %></td>
+                        <td class="px-6 py-4 text-sm text-gray-500"><%= new Date(m.upload_time * 1000).toLocaleDateString() %></td>
+                        <td class="px-6 py-4 text-center">
+                            <div id="actions-default-<%= m.id %>" class="space-x-2">
+                                <a href="<%= m.url %>" target="_blank" class="text-indigo-600 hover:text-indigo-900"><i class="bi bi-box-arrow-up-right"></i></a>
+                                <button onclick="showConfirmation('<%= m.id %>')" class="text-red-600 hover:text-red-900"><i class="bi bi-trash"></i></button>
+                            </div>
+                            <div id="actions-confirm-<%= m.id %>" class="hidden items-center justify-center space-x-2">
+                                <button onclick="confirmDelete('<%= m.id %>')" class="text-red-600 font-bold text-xs border border-red-600 rounded px-2">Yes</button>
+                                <button onclick="cancelConfirmation('<%= m.id %>')" class="text-gray-600 text-xs hover:underline">Cancel</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <% if (data.total_pages > 1) { %>
+        <div class="mt-4 flex justify-center space-x-1">
+            <% for(let i=1; i<=data.total_pages; i++) { %>
+                <a href="?page=<%= i %>&sort=<%= data.sort_order %>" class="px-3 py-1 border rounded text-sm <%= i===data.current_page ? 'bg-indigo-50 border-indigo-500 text-indigo-700' : 'bg-white' %>"><%= i %></a>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+
+<script>let currentCsrfToken = '<%= csrf_token %>';</script>
+<script src="/assets/js/manage.js"></script>

@@ -1,0 +1,15 @@
+<%- include('partials/header', { seo: seo, config: config }) %>
+
+<div class="min-h-[60vh] flex items-center justify-center text-center px-4">
+    <div>
+        <h1 class="text-4xl font-bold text-red-600">Error <%= error.status %></h1>
+        <p class="text-gray-700 mt-2"><%= error.message %></p>
+        <a href="/" class="mt-6 inline-block bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">Go Home</a>
+        <% if (error.stack) { %>
+            <pre class="mt-8 text-xs text-left bg-gray-100 p-4 rounded overflow-auto max-w-2xl"><%= error.stack %></pre>
+        <% } %>
+    </div>
+</div>
+
+<%- include('partials/footer', { config: config }) %>
+

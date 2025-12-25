@@ -1,0 +1,25 @@
+<div class="bg-white p-6 rounded shadow-sm border max-w-2xl mx-auto">
+    <h2 class="text-lg font-semibold mb-4">Upload via Admin</h2>
+    <form id="admin-upload-form" action="/admin/upload" method="post" enctype="multipart/form-data" 
+          data-upload-form 
+          data-max-size="<%= data.max_file_size %>"
+          data-success-redirect="/admin/manage"
+          data-progress-container="ap-cont" data-progress-bar="ap-bar"
+          data-percentage-text="ap-text" data-filename-text="ap-name"
+          data-error-text="ap-err" data-success-text="ap-succ">
+        <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
+        <label for="f-in" data-drop-zone class="block w-full border-2 border-dashed p-10 text-center cursor-pointer hover:bg-gray-50 rounded">
+            <span class="block text-gray-500">Click or Drag File</span>
+            <input type="file" name="media" id="f-in" class="hidden" accept="audio/*,video/*">
+        </label>
+    </form>
+    
+    <div id="ap-cont" class="hidden mt-4">
+        <p id="ap-name" class="text-sm truncate"></p>
+        <div class="bg-gray-200 h-2 rounded mt-1"><div id="ap-bar" class="bg-indigo-600 h-2 rounded" style="width:0%"></div></div>
+        <p id="ap-text" class="text-xs text-right">0%</p>
+    </div>
+    <div id="ap-err" class="hidden mt-4 text-red-600 text-sm"></div>
+    <div id="ap-succ" class="hidden mt-4 text-green-600 text-sm"></div>
+</div>
+<script src="/assets/js/uploader.js"></script>

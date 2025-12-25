@@ -1,0 +1,10 @@
+<%- include('partials/header', { seo: seo, config: config }) %>
+
+<div class="container mx-auto py-12 px-4">
+    <div class="bg-white p-8 rounded-lg shadow border max-w-4xl mx-auto prose prose-indigo">
+        <h1><%= title %></h1>
+        <%- content %>
+    </div>
+</div>
+
+<%- include('partials/footer', { config: config }) %>
