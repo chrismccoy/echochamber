@@ -50,7 +50,7 @@ async function confirmDelete(id) {
       // Update CSRF token for subsequent requests
       currentCsrfToken = data.csrf;
       // Remove row from table
-      document.getElementById(`actions-default-${id}`).closest("tr").remove();
+      document.getElementById(`actions-default-${id}`).closest(".project-row").remove();
     } else {
       alert("Error: " + data.message);
       cancelConfirmation(id);
