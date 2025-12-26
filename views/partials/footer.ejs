@@ -23,16 +23,18 @@
                         </a>
                     </div>
                     
-                    <div class="order-2 md:order-3 text-center md:text-right">
-                        <a href="/admin/login" class="inline-block border-2 border-white px-2 py-1 font-mono text-xs hover:bg-[#FFDE59] hover:text-black hover:border-black transition-colors">
-                            ADMIN_LOGIN_>>
-                        </a>
-                    </div>
+                    <% if (config.site.showAdminLogin) { %>
+                        <div class="order-2 md:order-3 text-center md:text-right">
+                            <a href="/admin/login" class="inline-block border-2 border-white px-2 py-1 font-mono text-xs hover:bg-[#FFDE59] hover:text-black hover:border-black transition-colors">
+                                ADMIN_LOGIN_>>
+                            </a>
+                        </div>
+                    <% } %>
                 </div>
             </div>
         </footer>
 
-    </div>
+    </div> 
 
     <script src="/assets/js/main.js"></script>
 </body>
