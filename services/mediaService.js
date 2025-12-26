@@ -92,7 +92,6 @@ class MediaService {
 
   /**
    * Retrieves a paginated and sorted list of media items.
-   * dynamically generates the 'url' property based on mimetype.
    */
   async getAllMediaWithDetails(sortBy = "newest", page = 1, perPage = 10) {
     const database = await jsonStorage.read(DB_FILE);
@@ -109,13 +108,16 @@ class MediaService {
     const totalPages = Math.ceil(totalItems / perPage);
     const offset = (page - 1) * perPage;
 
-    // Items with the correct URL based on type
-    const tracks = database
-      .slice(offset, offset + perPage)
-      .map((m) => ({
+    // Items with URL based on type
+    const tracks = database.slice(offset, offset + perPage).map((m) => {
+      const isVideo = m.mimetype && m.mimetype.startsWith("video");
+      const typePrefix = isVideo ? "v" : "a";
+      return {
         ...m,
-        url: `${config.site.url}/${m.mimetype.startsWith("video") ? "v" : "a"}/${m.id}`,
-      }));
+        url: `${config.site.url}/${typePrefix}/${m.id}`,
+        mimetype: m.mimetype || "audio/mpeg",
+      };
+    });
 
     return {
       media_tracks: tracks,
