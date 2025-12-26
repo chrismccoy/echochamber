@@ -13,6 +13,7 @@ module.exports = {
   site: {
     title: process.env.SITE_TITLE || "Echo Chamber",
     url: process.env.SITE_URL || "http://localhost:3000",
+    showAdminLogin: process.env.SHOW_ADMIN_LOGIN !== "false",
   },
 
   seo: {
