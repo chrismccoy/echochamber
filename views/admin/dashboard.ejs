@@ -1,34 +1,46 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="bg-white p-6 rounded shadow-sm border">
-        <div class="flex items-center">
-            <div class="bg-indigo-100 text-indigo-600 p-3 rounded-full"><i class="bi bi-collection-play text-2xl"></i></div>
-            <div class="ml-4">
-                <p class="text-sm font-medium text-gray-500">Total Media</p>
-                <p id="totalMedia" class="text-2xl font-semibold">Loading...</p>
-            </div>
-        </div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    <div class="border-4 border-black bg-white p-6 shadow-[8px_8px_0_0_#000]">
+        <h3 class="font-bold uppercase text-sm text-neutral-500 mb-2">// LIBRARY SIZE</h3>
+        <p id="totalMedia" class="text-5xl font-black text-black tracking-tighter">Loading...</p>
     </div>
-    <div class="bg-white p-6 rounded shadow-sm border">
-        <div class="flex items-center mb-2">
-            <div class="bg-green-100 text-green-600 p-2 rounded-full mr-3"><i class="bi bi-graph-up"></i></div>
-            <h3 class="font-medium text-gray-700">Most Popular</h3>
-        </div>
-        <div id="mostPopularList" class="space-y-2">Loading...</div>
+
+    <div class="border-4 border-black bg-[#5CE1E6] p-6 shadow-[8px_8px_0_0_#000]">
+        <h3 class="font-bold uppercase text-black mb-2">// QUICK UPLOAD</h3>
+        <a href="/admin/upload" class="inline-block bg-black text-white px-4 py-2 font-bold uppercase hover:bg-white hover:text-black transition-colors">
+            Go Now &rarr;
+        </a>
     </div>
-    <div class="bg-white p-6 rounded shadow-sm border">
-        <div class="flex items-center mb-2">
-            <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3"><i class="bi bi-clock-history"></i></div>
-            <h3 class="font-medium text-gray-700">Recent Uploads</h3>
-        </div>
-        <div id="newMediaList" class="space-y-2">Loading...</div>
+
+    <div class="border-4 border-black bg-[#FFDE59] p-6 shadow-[8px_8px_0_0_#000]">
+        <h3 class="font-bold uppercase text-black mb-2">// SYSTEM</h3>
+        <p class="text-sm font-bold">Disk: OK<br>Mode: Production</p>
     </div>
 </div>
 
-<div class="mt-8 bg-white p-6 rounded shadow-sm border">
-    <h3 class="font-semibold text-gray-900 mb-4">Upload Activity (30 Days)</h3>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    
+    <div class="border-2 border-black bg-white">
+        <div class="bg-black text-white p-3 font-bold uppercase flex justify-between">
+            <span>Most Popular</span>
+            <i class="fa-solid fa-fire text-[#FF4D4D]"></i>
+        </div>
+        <div id="mostPopularList" class="p-4 space-y-2">Loading...</div>
+    </div>
+
+    <div class="border-2 border-black bg-white">
+        <div class="bg-black text-white p-3 font-bold uppercase flex justify-between">
+            <span>Recent Uploads</span>
+            <i class="fa-solid fa-clock text-[#5CE1E6]"></i>
+        </div>
+        <div id="newMediaList" class="p-4 space-y-2">Loading...</div>
+    </div>
+
+</div>
+
+<div class="mt-8 border-4 border-black bg-white p-4 shadow-[8px_8px_0_0_#000]">
+    <h3 class="font-black uppercase mb-4">Activity_Log (30 Days)</h3>
     <div class="h-64"><canvas id="mediaChart"></canvas></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/assets/js/dashboard.js"></script>
-

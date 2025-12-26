@@ -1,34 +1,21 @@
 /*
- * Admin Dashboard Styles.
- * 
- * Custom styles required for the administration panel layout, specifically
- * handling the sidebar navigation states and mobile responsive transitions
- * that Tailwind utility classes alone do not cover.
+ * Neo-Brutalist Admin Styles.
  */
 
-/* 
- * Active state for sidebar navigation links.
- * Highlights the current page with a specific indigo background and text color.
- */
 .sidebar-link.active {
-  background-color: #eef2ff; /* indigo-100 */
-  color: #4338ca;            /* indigo-700 */
-  font-weight: 600;
+    background-color: #000;
+    color: #fff;
+    transform: translate(4px, 4px);
+    box-shadow: none; 
 }
 
-/* 
- * Mobile Sidebar Overlay.
- * A semi-transparent dark backdrop that appears when the sidebar is open 
- * on mobile devices. Handles z-index to sit below the sidebar but above content.
- */
+/* Overlay for mobile sidebar */
 .sidebar-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(2px);
   z-index: 30;
 }
 
-/* 
- * Sidebar Transition.
- */
 #sidebar {
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }

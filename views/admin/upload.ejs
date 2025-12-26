@@ -1,5 +1,6 @@
-<div class="bg-white p-6 rounded shadow-sm border max-w-2xl mx-auto">
-    <h2 class="text-lg font-semibold mb-4">Upload via Admin</h2>
+<div class="border-2 border-black p-6 bg-white max-w-3xl mx-auto mt-8">
+    <h3 class="text-xl font-bold uppercase mb-4 bg-black text-white inline-block px-2">// System Upload</h3>
+    
     <form id="admin-upload-form" action="/admin/upload" method="post" enctype="multipart/form-data" 
           data-upload-form 
           data-max-size="<%= data.max_file_size %>"
@@ -7,19 +8,28 @@
           data-progress-container="ap-cont" data-progress-bar="ap-bar"
           data-percentage-text="ap-text" data-filename-text="ap-name"
           data-error-text="ap-err" data-success-text="ap-succ">
+        
         <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
-        <label for="f-in" data-drop-zone class="block w-full border-2 border-dashed p-10 text-center cursor-pointer hover:bg-gray-50 rounded">
-            <span class="block text-gray-500">Click or Drag File</span>
+        
+        <label for="f-in" data-drop-zone class="border-4 border-dashed border-black bg-neutral-50 p-12 text-center cursor-pointer transition-all duration-200 block hover:bg-[#FFDE59]">
+            <p class="text-3xl font-black uppercase mb-2">Drag & Drop</p>
+            <p class="font-mono text-sm">Target: /public/uploads</p>
             <input type="file" name="media" id="f-in" class="hidden" accept="audio/*,video/*">
         </label>
     </form>
     
-    <div id="ap-cont" class="hidden mt-4">
-        <p id="ap-name" class="text-sm truncate"></p>
-        <div class="bg-gray-200 h-2 rounded mt-1"><div id="ap-bar" class="bg-indigo-600 h-2 rounded" style="width:0%"></div></div>
-        <p id="ap-text" class="text-xs text-right">0%</p>
+    <div id="ap-cont" class="hidden mt-6 border-2 border-black p-4 bg-neutral-50">
+        <div class="flex justify-between font-mono font-bold mb-1">
+            <span id="ap-name" class="truncate">Uploading...</span>
+            <span id="ap-text">0%</span>
+        </div>
+        <div class="w-full h-4 border-2 border-black bg-white">
+            <div id="ap-bar" class="h-full bg-[#5CE1E6] w-0"></div>
+        </div>
     </div>
-    <div id="ap-err" class="hidden mt-4 text-red-600 text-sm"></div>
-    <div id="ap-succ" class="hidden mt-4 text-green-600 text-sm"></div>
+    
+    <div id="ap-err" class="hidden mt-4 p-4 border-2 border-red-600 bg-red-50 text-red-700 font-bold font-mono"></div>
+    <div id="ap-succ" class="hidden mt-4 p-4 border-2 border-green-600 bg-green-50 text-green-700 font-bold font-mono">Upload Complete. Redirecting...</div>
 </div>
+
 <script src="/assets/js/uploader.js"></script>

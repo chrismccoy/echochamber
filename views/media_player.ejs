@@ -1,46 +1,96 @@
 <%- include('partials/header', { seo: seo, config: config }) %>
 
-<link rel="stylesheet" href="/assets/css/player.css">
+<header class="mb-8">
+    <a href="/" class="inline-block font-mono font-bold text-sm bg-black text-white px-4 py-2 hover:bg-[#FFDE59] hover:text-black hover:shadow-[4px_4px_0_0_#000] border-2 border-transparent hover:border-black transition-all mb-6">
+        < UPLOAD NEW
+    </a>
 
-<div class="container mx-auto py-10 px-4">
-    <div class="audio-container">
-        <h2 class="text-xl font-bold text-gray-800 mb-4 truncate" title="<%= media.original_filename %>">
-            <%= media.original_filename %>
-        </h2>
-        <% if (isVideo) { %>
-            <video id="media-player" controls class="plyr w-full aspect-video">
-                <source src="<%= config.uploads.url_path %><%= media.filename %>" type="<%= media.mimetype %>">
-            </video>
-        <% } else { %>
-            <audio id="media-player" controls class="plyr w-full">
-                <source src="<%= config.uploads.url_path %><%= media.filename %>" type="<%= media.mimetype %>">
-            </audio>
-        <% } %>
+    <div class="w-full">
+        <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-none break-words w-full">
+            <span class="bg-[#FFDE59] px-2 decoration-clone box-decoration-clone leading-[1.3] border-2 border-black">
+                <%= media.original_filename %>
+            </span>
+        </h1>
     </div>
+</header>
 
-    <div class="mt-6 max-w-lg mx-auto">
-        <div class="flex items-center bg-gray-100 rounded-lg p-2 mb-4 border">
-            <input id="media-url" type="text" readonly value="<%= currentUrl %>" class="flex-grow bg-transparent border-none text-sm px-2 focus:outline-none text-gray-600">
-            <button id="copy-button" class="bg-indigo-600 text-white text-xs px-3 py-1.5 rounded hover:bg-indigo-700">Copy</button>
+<section class="space-y-8">
+    
+    <div class="w-full border-t-4 border-dashed border-black pt-8">
+        <div class="flex items-center gap-4 mb-4">
+            <h3 class="text-xl font-black uppercase bg-black text-white px-4 py-2 inline-block shadow-[4px_4px_0_0_#FF4D4D]">
+                <%= isVideo ? 'VIDEO_FEED' : 'AUDIO_TRACK' %>
+            </h3>
+            <div class="flex-grow h-4 bg-black"></div>
         </div>
-        <div class="flex justify-center space-x-4">
-            <a href="<%= config.uploads.url_path %><%= media.filename %>" download="<%= media.original_filename %>" class="btn-action text-indigo-600 text-sm font-medium flex items-center hover:underline">
-                <i class="bi bi-download mr-1"></i> Download
-            </a>
-            <div class="text-gray-500 text-sm flex items-center">
-                <i class="bi <%= isVideo ? 'bi-play-btn' : 'bi-headphones' %> mr-1"></i> <%= plays %>
+
+        <div class="relative group w-full">
+            <div class="absolute inset-0 bg-[#5CE1E6] translate-x-2 translate-y-2 md:translate-x-3 md:translate-y-3 border-4 border-black"></div>
+            
+            <div class="relative border-4 border-black bg-white p-2">
+                
+                <div class="audio-container">
+                    <% if (isVideo) { %>
+                        <video id="media-player" controls class="plyr w-full aspect-video bg-black">
+                            <source src="<%= config.uploads.url_path %><%= media.filename %>" type="<%= media.mimetype %>">
+                        </video>
+                    <% } else { %>
+                        <audio id="media-player" controls class="plyr w-full">
+                            <source src="<%= config.uploads.url_path %><%= media.filename %>" type="<%= media.mimetype %>">
+                        </audio>
+                    <% } %>
+                </div>
+
+                <div class="mt-2 flex justify-between items-center bg-black text-white px-3 py-2 font-mono text-xs font-bold uppercase">
+                    <span class="truncate">ID: <%= media.id %></span>
+                    <span class="text-[#FF4D4D] whitespace-nowrap"><i class="fa-solid fa-eye mr-2"></i> <%= plays %> VIEWS</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<%- include('partials/footer', { config: config }) %>
+    <div class="flex flex-col md:flex-row gap-6 items-end pt-8">
+        
+        <div class="w-full md:w-1/2">
+            <label class="block font-bold uppercase mb-2 font-mono text-sm">Direct Link</label>
+            <div class="flex border-4 border-black shadow-[4px_4px_0_0_#000]">
+                <input id="media-url" type="text" readonly value="<%= currentUrl %>" class="flex-grow p-3 bg-white font-mono text-sm outline-none text-black">
+                <button id="copy-button" class="bg-[#FF90E8] px-6 font-bold uppercase border-l-4 border-black hover:bg-black hover:text-white transition-colors">
+                    Copy
+                </button>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 flex gap-4">
+            <a href="<%= config.uploads.url_path %><%= media.filename %>" download="<%= media.original_filename %>"
+               class="flex-1 text-center relative px-4 py-3 bg-[#5CE1E6] border-4 border-black text-lg font-black uppercase transition-transform hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] active:translate-x-0 active:translate-y-0 active:shadow-none">
+                Download File
+            </a>
+        </div>
+
+    </div>
+
+</section>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        new Plyr("#media-player", { controls: ["play-large", "play", "progress", "current-time", "mute", "volume", "fullscreen"] });
+        const player = new Plyr("#media-player", { 
+            controls: [
+                'play-large',
+                'play',
+                'progress',
+                'current-time',
+                'mute',
+                'volume',
+                'fullscreen'
+            ],
+            settings: [],
+            loadSprite: true,
+        });
     });
 </script>
 
 <script src="/assets/js/player.js"></script>
+
+<%- include('partials/footer', { config: config }) %>

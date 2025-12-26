@@ -1,14 +1,195 @@
-/* Custom utility classes replacing specific Tailwind if needed */
+/*
+ * Neo-Brutalism Theme Styles.
+ */
 
+/* Import Fonts: Inter (Sans) and IBM Plex Mono (Mono) */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Inter:wght@400;700;900&display=swap');
+
+/* Base Settings */
 body {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
+  color: #000;
+  background-color: #5CE1E6; /* Default Public Background (Cyan) */
 }
 
-[data-drop-zone].dragover {
-  border-color: #4f46e5;
-  background-color: #eef2ff;
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900; /* Extra bold/black */
+    letter-spacing: -0.05em; /* Tight tracking */
 }
 
+.font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* 
+ * Brutalist Utilities 
+ * Helper classes to replicate Tailwind arbitrary values in CSS 
+ */
+.neo-shadow {
+    box-shadow: 4px 4px 0 0 #000;
+}
+
+.neo-shadow-lg {
+    box-shadow: 8px 8px 0 0 #000;
+}
+
+.neo-border {
+    border: 4px solid #000;
+}
+
+/* Selection Colors */
+::selection {
+    background-color: #000;
+    color: #FFDE59;
+}
+
+/* Utility to isolate stacking contexts */
 .isolate {
   isolation: isolate;
+}
+
+/* Upload Drop Zone Hover State */
+[data-drop-zone] {
+    transition: all 0.2s ease-in-out;
+}
+[data-drop-zone].dragover {
+    background-color: #FFDE59 !important;
+    transform: scale(1.02);
+}
+
+/*
+ * Neo-Brutalist Player Styles.
+ */
+
+/* Main Container Wrapper */
+.audio-container {
+  width: 100%;
+  max-width: 100%;
+  background-color: #000; /* Black background prevents white flashes */
+  border: 4px solid #000;
+  padding: 0;
+  box-shadow: none; /* Shadow handled by parent wrapper in EJS */
+  position: relative;
+  display: block;
+}
+
+/* 
+ * ==========================================================================
+ * PLYR THEME OVERRIDES
+ * Adapts the Plyr video player to the Neo-Brutalist design system.
+ * ==========================================================================
+ */
+
+.plyr {
+  font-family: 'IBM Plex Mono', monospace;
+  width: 100%;
+  height: auto;
+  border-radius: 0 !important;
+  
+  /* Core Variables */
+  --plyr-color-main: #FFDE59; /* Progress Bar Color */
+  --plyr-video-background: #000;
+  --plyr-menu-background: #fff;
+  --plyr-menu-color: #000;
+  --plyr-tooltip-background: #000;
+  --plyr-tooltip-color: #fff;
+  
+  /* Hard Edges (Brutalist style) */
+  --plyr-border-radius: 0px !important;
+  
+  /* Range Slider (Progress/Volume) Styling */
+  --plyr-range-track-height: 8px;
+  --plyr-range-thumb-height: 20px;
+  --plyr-range-thumb-background: #fff;
+  --plyr-range-thumb-active-shadow-width: 0px;
+  --plyr-range-thumb-border: 2px solid #000;
+  
+  /* Typography */
+  --plyr-font-family: 'IBM Plex Mono', monospace;
+  --plyr-font-weight-regular: 700;
+}
+
+.plyr button {
+    appearance: button !important; 
+    background: transparent;
+}
+
+.plyr input[type=range] {
+    appearance: auto !important;
+    display: block !important;
+    color: inherit;
+}
+
+/* Control Bar */
+.plyr__controls {
+    background: #fff !important;
+    border-top: 4px solid #000;
+    padding: 10px 15px !important;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    color: #000 !important;
+}
+
+/* Control Buttons (Play, Mute, etc) */
+.plyr__control {
+    border-radius: 0 !important;
+    color: #000 !important;
+    padding: 7px !important;
+    transition: background-color 0.1s ease;
+}
+
+.plyr__control:hover {
+    background: #FFDE59 !important; /* Yellow hover */
+    color: #000 !important;
+}
+
+.plyr__control--overlaid {
+    background: #FFDE59 !important;
+    color: #000 !important;
+    border: 4px solid #000;
+    box-shadow: 4px 4px 0 0 #000;
+    padding: 15px !important;
+    opacity: 0.9;
+}
+
+.plyr__control--overlaid:hover {
+    background: #5CE1E6 !important; /* Cyan hover */
+    transform: translate(-2px, -2px);
+    opacity: 1;
+}
+
+/* Progress Bar Container */
+.plyr__progress__container {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Tooltips (Time hover) */
+.plyr__tooltip {
+    border: 2px solid #000;
+    font-weight: bold;
+    box-shadow: 4px 4px 0 0 #000;
+    background: #fff !important;
+    color: #000 !important;
+    padding: 4px 8px !important;
+}
+
+/* Volume Input */
+.plyr__volume {
+    min-width: 60px; 
+    max-width: 100px;
+}
+
+/* Hide big play button on audio players */
+.plyr--audio .plyr__control--overlaid {
+    display: none;
+}
+
+/* Ensure audio players have a background */
+.plyr--audio .plyr__controls {
+    background: #fff;
+    border: none; /* Already has border from container */
 }

@@ -1,59 +1,104 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-gray-50">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> | Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/assets/css/admin_dashboard.css">
+    <title><%= title %> // Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/admin_dashboard.css" rel="stylesheet">
 </head>
+<body class="bg-[#f5f5f4] text-black font-mono">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-5 min-h-screen">
+        
+        <aside id="sidebar" class="hidden lg:flex lg:flex-col col-span-1 bg-neutral-50 border-r-4 border-black min-h-screen">
+            <div class="p-6 border-b-4 border-black">
+                <h1 class="text-2xl font-bold uppercase">
+                    <a href="/admin" class="hover:bg-[#FFDE59]">System Admin</a>
+                </h1>
+                <p class="text-sm text-neutral-600 font-mono">v2.0.0</p>
+            </div>
 
-<body class="h-full flex">
+            <nav class="flex-grow p-6">
+                <h2 class="text-sm uppercase text-neutral-500 mb-4 font-bold tracking-widest">// Navigation</h2>
+                <ul class="space-y-3">
+                    <% 
+                        const baseClass = "sidebar-link block font-bold uppercase p-3 border-2 transition-all";
+                        const activeClass = "bg-black text-white border-white translate-x-[4px] translate-y-[4px] shadow-none";
+                        const inactiveClass = "border-transparent hover:border-black hover:bg-white hover:shadow-[4px_4px_0_0_#000]";
+                    %>
+                    <li>
+                        <a href="/admin" class="<%= baseClass %> <%= title === 'Dashboard' ? activeClass : inactiveClass %>">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/manage" class="<%= baseClass %> <%= title === 'Manage Media' ? activeClass : inactiveClass %>">
+                            Files
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/upload" class="<%= baseClass %> <%= title === 'Upload Media' ? activeClass : inactiveClass %>">
+                            Upload
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
-    <aside id="sidebar" class="fixed inset-y-0 left-0 bg-white shadow-md w-64 p-4 z-40 transform -translate-x-full lg:translate-x-0 flex flex-col">
-        <div class="flex items-center pb-4 border-b mb-6">
-            <i class="bi bi-shield-lock-fill text-indigo-600 text-2xl mr-2"></i>
-            <span class="text-xl font-bold">Admin Panel</span>
-        </div>
+            <div class="p-6 mt-auto border-t-4 border-black">
+                <a href="/admin/logout" class="block w-full text-center font-bold uppercase border-4 border-black bg-[#FF4D4D] text-white py-2 shadow-[4px_4px_0_0_#000] cursor-pointer transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+                    Logout
+                </a>
+            </div>
+        </aside>
 
-        <nav class="flex-grow">
-            <a href="/admin" class="sidebar-link block py-2 px-4 rounded mb-1 text-gray-600 hover:bg-indigo-50 <%= title === 'Dashboard' ? 'active' : '' %>">
-                <i class="bi bi-speedometer2 mr-2"></i> Dashboard
-            </a>
-            <a href="/admin/manage" class="sidebar-link block py-2 px-4 rounded mb-1 text-gray-600 hover:bg-indigo-50 <%= title === 'Manage Media' ? 'active' : '' %>">
-                <i class="bi bi-collection mr-2"></i> Media Files
-            </a>
-            <a href="/admin/upload" class="sidebar-link block py-2 px-4 rounded mb-1 text-gray-600 hover:bg-indigo-50 <%= title === 'Upload Media' ? 'active' : '' %>">
-                <i class="bi bi-cloud-upload mr-2"></i> Upload
-            </a>
-        </nav>
+        <div id="sidebar-overlay" class="fixed inset-0 hidden lg:hidden sidebar-overlay"></div>
+        <aside id="mobile-sidebar" class="fixed inset-y-0 left-0 w-64 bg-neutral-50 border-r-4 border-black transform -translate-x-full transition-transform z-40 lg:hidden">
+             <div class="p-6 border-b-4 border-black"><h1 class="text-2xl font-bold">MENU</h1></div>
+             <nav class="p-6 space-y-2">
+                <a href="/admin" class="block py-2 font-bold border-b-2 border-transparent hover:border-black hover:bg-[#FFDE59] px-2">Dashboard</a>
+                <a href="/admin/manage" class="block py-2 font-bold border-b-2 border-transparent hover:border-black hover:bg-[#FFDE59] px-2">Files</a>
+                <a href="/admin/upload" class="block py-2 font-bold border-b-2 border-transparent hover:border-black hover:bg-[#FFDE59] px-2">Upload</a>
+                <a href="/admin/logout" class="block py-2 mt-4 text-red-600 font-bold border-2 border-red-600 px-2 text-center hover:bg-red-600 hover:text-white">Logout</a>
+             </nav>
+        </aside>
 
-        <div class="border-t pt-4">
-             <a href="/" target="_blank" class="block py-2 px-4 text-gray-500 hover:text-indigo-600">
-                <i class="bi bi-box-arrow-up-right mr-2"></i> View Site
-            </a>
-             <a href="/admin/logout" class="block py-2 px-4 text-gray-500 hover:text-red-600">
-                <i class="bi bi-box-arrow-left mr-2"></i> Logout
-            </a>
-        </div>
-    </aside>
+        <main class="col-span-1 lg:col-span-4 p-4 sm:p-6 lg:p-8 flex flex-col h-full">
+            
+            <header class="flex justify-between items-center pb-6 border-b-2 border-black lg:hidden">
+                <button id="open-sidebar" class="text-2xl border-2 border-black p-1 bg-white"><i class="fa-solid fa-bars"></i></button>
+                <span class="font-bold uppercase">Admin</span>
+            </header>
 
-    <div id="sidebar-overlay" class="fixed inset-0 hidden lg:hidden sidebar-overlay"></div>
+            <div class="flex-grow mt-4 lg:mt-0">
+                <header class="hidden lg:flex justify-between items-center pb-6 border-b-2 border-black mb-8">
+                    <div>
+                        <h1 class="text-4xl font-extrabold uppercase"><%= title %></h1>
+                        <p class="text-neutral-600">SYSTEM_STATUS: <span class="text-green-600 font-bold">ONLINE</span></p>
+                    </div>
+                    <a href="/" target="_blank" class="font-bold uppercase underline hover:bg-[#FFDE59] px-2">Open Site &rarr;</a>
+                </header>
 
-    <div class="flex-1 flex flex-col lg:ml-64 h-full">
-        <header class="bg-white shadow-sm p-4 flex items-center lg:hidden">
-            <button id="open-sidebar" class="mr-4 text-gray-600">
-                <i class="bi bi-list text-2xl"></i>
-            </button>
-            <h1 class="text-xl font-semibold"><%= title %></h1>
-        </header>
+                <%- include(contentPartial, { data: data, csrf_token: csrf_token, config: config }) %>
+            </div>
 
-        <main class="flex-1 p-6 overflow-y-auto">
-            <h1 class="text-2xl font-bold mb-6 hidden lg:block"><%= title %></h1>
-            <%- include(contentPartial, { data: data, csrf_token: csrf_token, config: config }) %>
+            <footer class="mt-12 pt-6 border-t-2 border-black text-center text-xs text-neutral-500">
+                &copy; SYSTEM ADMIN.
+            </footer>
         </main>
     </div>
+
+    <script>
+        const sb = document.getElementById('mobile-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const btn = document.getElementById('open-sidebar');
+        if(btn) {
+            btn.addEventListener('click', () => { sb.classList.remove('-translate-x-full'); overlay.classList.remove('hidden'); });
+            overlay.addEventListener('click', () => { sb.classList.add('-translate-x-full'); overlay.classList.add('hidden'); });
+        }
+    </script>
 
     <script src="/assets/js/admin.js"></script>
 
